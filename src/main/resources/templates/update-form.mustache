@@ -1,0 +1,19 @@
+{{> layout/header}}
+
+<section>
+
+    <form action="/board/{{model.id}}/update" method="post">
+        <div>
+
+            번호 :  <input value="{{model.id}}" readonly><br>
+            제목 : <input type="text" name="title" value="{{model.title}}"><br>
+            내용 : <input type="text" name="content" value="{{model.content}}"><br>
+            작성일 : <input value="{{model.createdAt}}" readonly><br>
+            <button type="submit">수정하기</button>
+        </div>
+    </form>
+
+
+</section>
+</body>
+</html>
