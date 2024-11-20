@@ -27,18 +27,20 @@ public class BoardService {
     }
 
     public BoardResponse.DetailDTO 게시글상세보기(int id) {
-        Board board = boardRepository.findById(id);
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("해당 id의 게시글이 없습니다 : " + id));
 
         return new BoardResponse.DetailDTO(board);
     }
 
     public BoardResponse.UpdateFormDTO 게시글수정화면보기(int id) {
-        Board board = boardRepository.findById(id);
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("해당 id의 게시글이 없습니다 : " + id));
 
         return new BoardResponse.UpdateFormDTO(board);
     }
 
-    @Transactional // 테스트 코드에서는 롤백을 해주고, 여기서는 커밋을 해준다.
+    @Transactional
     public void 게시글쓰기(BoardRequest.SaveDTO saveDTO) {
         boardRepository.save(saveDTO.toEntity());
     }
@@ -50,6 +52,8 @@ public class BoardService {
 
     @Transactional
     public void 게시글수정(int id, BoardRequest.UpdateDTO updateDTO) {
-        boardRepository.update(id, updateDTO.getTitle(), updateDTO.getContent());
-    }
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("해당 id의 게시글이 없습니다 : " + id));
+        board.update(updateDTO.getTitle(), updateDTO.getContent());
+    } // 영속화된 객체 상태 변경 - update + commit => 더티 체킹
 }

@@ -26,6 +26,11 @@ public class Board {
     private String content;
     @CreationTimestamp
     private Timestamp createdAt;
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
 
 
