@@ -44,10 +44,9 @@ public class BoardController {
     }
 
     @PostMapping("/board/save")
-    public void save(BoardRequest.SaveDTO saveDTO, HttpServletResponse response) {
+    public String save(BoardRequest.SaveDTO saveDTO) {
         boardService.게시글쓰기(saveDTO);
-        response.setStatus(302);
-        response.setHeader("location", "/");
+        return "redirect:/";
     }
 
     @PostMapping("/board/{id}/delete")

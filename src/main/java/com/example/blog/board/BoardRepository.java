@@ -28,11 +28,8 @@ public class BoardRepository {
         return (Board) q.getSingleResult();
     }
 
-    public void save(String title, String content) {
-        Query q = em.createNativeQuery("insert into board_tb(title, content, created_at) values(?, ?, now())");
-        q.setParameter(1, title);
-        q.setParameter(2, content);
-        q.executeUpdate();
+    public void save(Board board) {
+        em.persist(board);
     }
 
     public void delete(int id) {

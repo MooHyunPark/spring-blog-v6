@@ -40,7 +40,7 @@ public class BoardService {
 
     @Transactional // 테스트 코드에서는 롤백을 해주고, 여기서는 커밋을 해준다.
     public void 게시글쓰기(BoardRequest.SaveDTO saveDTO) {
-        boardRepository.save(saveDTO.getTitle(), saveDTO.getContent());
+        boardRepository.save(saveDTO.toEntity());
     }
 
     @Transactional
