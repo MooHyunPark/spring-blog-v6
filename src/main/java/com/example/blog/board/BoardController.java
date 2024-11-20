@@ -66,6 +66,6 @@ public class BoardController {
     @PostMapping("/board/{id}/update")
     public String update(BoardRequest.UpdateDTO updateDTO, @PathVariable("id") int id) {
         boardService.게시글수정(id, updateDTO);
-        return "redirect:/";
+        return "redirect:/board/" + id;
     }
 }

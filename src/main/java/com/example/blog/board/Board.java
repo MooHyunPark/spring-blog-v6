@@ -18,8 +18,10 @@ import java.util.List;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto increment 와 동일
-    private int id;
+    private Integer id;
     private String title;
     private String content;
     private Timestamp createdAt;
 }
+
+
