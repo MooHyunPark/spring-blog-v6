@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import java.util.List;
 
 @RequiredArgsConstructor// final이 붙어있는 변수의 생성자를 만들어준다
@@ -68,3 +69,5 @@ public class BoardController {
         return "redirect:/board/" + id;
     }
 }
+
+
