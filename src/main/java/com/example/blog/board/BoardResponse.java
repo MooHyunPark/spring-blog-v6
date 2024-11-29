@@ -2,6 +2,8 @@ package com.example.blog.board;
 
 
 import com.example.blog._core.util.MyDate;
+import com.example.blog.user.User;
+import com.example.blog.user.UserResponse;
 import lombok.Data;
 
 public class BoardResponse {
@@ -13,12 +15,22 @@ public class BoardResponse {
         private String content;
         private String createdAt;
 
-        public DetailDTO(Board board) {
+        private Integer userId;
+        private String username;
+
+        private boolean isOwner = false;
+
+        public DetailDTO(Board board, UserResponse.loginDTO user) {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.createdAt = MyDate.formatToStr(board.getCreatedAt());
 
+            this.userId = board.getUser().getId();
+            this.username = board.getUser().getUsername();
+            if (user != null && board.getUser().getId() == user.getId()) {
+                this.isOwner = true;
+            }
         }
     }
 

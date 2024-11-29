@@ -1,13 +1,18 @@
 package com.example.blog.board;
 
 import com.example.blog._core.util.error.ex.Exception404;
-import jakarta.transaction.Transactional;
+
+import com.example.blog.user.User;
+import com.example.blog.user.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class BoardService {
@@ -23,15 +28,16 @@ public class BoardService {
             BoardResponse.DTO dto = new BoardResponse.DTO(board);
             dtos.add(dto);
         }
-        
+
         return dtos;
     }
 
-    public BoardResponse.DetailDTO 게시글상세보기(int id) {
+
+    public BoardResponse.DetailDTO 게시글상세보기(int id, UserResponse.loginDTO sessionUser) {
         Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : " + id));
 
-        return new BoardResponse.DetailDTO(board);
+        return new BoardResponse.DetailDTO(board,sessionUser);
     }
 
     public BoardResponse.UpdateFormDTO 게시글수정화면보기(int id) {

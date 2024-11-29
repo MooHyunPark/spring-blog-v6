@@ -1,5 +1,8 @@
 package com.example.blog.board;
 
+import com.example.blog.user.User;
+import com.example.blog.user.UserResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -33,8 +36,10 @@ public class BoardController {
      * 패스변수(where절) : /board/1
      */
     @GetMapping("/board/{id}")
-    public String detail(@PathVariable("id") Integer id, Model model) {
-        BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id);
+    public String detail(@PathVariable("id") Integer id, Model model, HttpSession session) {
+        UserResponse.loginDTO sessionUser = (UserResponse.loginDTO) session.getAttribute("sessionUser");
+
+        BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id, sessionUser);
         model.addAttribute("model", boardDetail);
         return "board/detail";
     }
