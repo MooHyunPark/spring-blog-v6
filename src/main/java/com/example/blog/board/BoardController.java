@@ -36,7 +36,7 @@ public class BoardController {
     public String detail(@PathVariable("id") Integer id, Model model) {
         BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id);
         model.addAttribute("model", boardDetail);
-        return "detail";
+        return "board/detail";
     }
 
     @GetMapping("/board/save-form")
@@ -61,7 +61,7 @@ public class BoardController {
     public String updateForm(@PathVariable("id") Integer id, Model model) {
         BoardResponse.UpdateFormDTO updateFormDTO = boardService.게시글수정화면보기(id);
         model.addAttribute("model", updateFormDTO);
-        return "update-form";
+        return "board/update-form";
     }
 
     @PostMapping("/board/{id}/update")
