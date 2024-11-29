@@ -1,0 +1,18 @@
+{{> layout/header}}
+
+<section>
+    <!--title=제목&content=내용 -&ndash;&gt; application/x-www-form-urlencoded
+        key 값은 input태그의 name
+        value 값은 input 태그에 사용자가 입력하는 값
+
+        아래는 post로 게시글을 저장하는 방식 > 1.0방식
+        application/x-www-form-urlencoded은 기본값이며 적지 않아도 자동으로 적용된다.-->
+    <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
+        <input type="text" name="username" placeholder="아이디"><br>
+        <input type="password" name="password" placeholder="패스워드"><br>
+        <button type="submit">로그인</button>
+    </form>
+
+</section>
+</body>
+</html>

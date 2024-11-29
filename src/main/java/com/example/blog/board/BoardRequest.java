@@ -14,7 +14,7 @@ public class BoardRequest {
         private String content;
 
         public Board toEntity() {
-            Board board = new Board(null, title, content, null);
+            Board board = Board.builder().title(title).content(content).build();
             return board;
         }
     }
