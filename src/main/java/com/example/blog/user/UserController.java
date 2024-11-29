@@ -5,11 +5,8 @@ import com.example.blog.board.BoardService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -23,15 +20,12 @@ public class UserController {
         return "user/login-form";
     }
         
-    
     @PostMapping("/login")
-    public String login(UserRequest.LoginDTO loginDTO, HttpServletRequest request, Model model) {
+    public String login(UserRequest.LoginDTO loginDTO, HttpServletRequest request) {
         UserResponse.loginDTO dto = userService.login(loginDTO);
         request.getSession().setAttribute("sessionUser", dto);
 
-
-        model.addAttribute("models", boardService.게시글목록보기());
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/join-form")
