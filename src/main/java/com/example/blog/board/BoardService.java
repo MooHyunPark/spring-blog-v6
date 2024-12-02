@@ -34,7 +34,7 @@ public class BoardService {
 
 
     public BoardResponse.DetailDTO 게시글상세보기(int id, UserResponse.loginDTO sessionUser) {
-        Board board = boardRepository.findById(id)
+        Board board = boardRepository.findByIdJoinUser(id)
                 .orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : " + id));
 
         return new BoardResponse.DetailDTO(board,sessionUser);

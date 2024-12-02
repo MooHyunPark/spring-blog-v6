@@ -16,6 +16,14 @@ public class BoardRepositoryTest {
     @Autowired
     private BoardRepository boardRepository;
 
+
+    @Test
+    public void findByIdJoinUser_test() {
+        Board byIdJoinUser = boardRepository.findByIdJoinUser(1);
+
+        System.out.println(byIdJoinUser.getUser().getUsername());
+    }
+
     @Test
     public void findById_test() {
         // given

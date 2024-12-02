@@ -1,5 +1,7 @@
 package com.example.blog.board;
 
+import com.example.blog._core.util.error.ex.Exception400;
+import com.example.blog._core.util.error.ex.Exception404;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
@@ -40,4 +42,19 @@ public class BoardRepository {
     }
 
     // update는 작성하지 않아도 된다.
+
+    public Optional<Board> findByIdJoinUser(int id) {
+        String sql = """
+                select b from Board b join fetch b.user where b.id = :id
+                """;
+        Query q = em.createQuery(sql, Board.class);
+        q.setParameter("id", id);
+        try {
+            Board board = (Board) q.getSingleResult();
+            return Optional.ofNullable(board);
+        } catch (RuntimeException e) {
+            return Optional.ofNullable(null);
+        }
+
+    }
 }
