@@ -2,9 +2,13 @@ package com.example.blog.board;
 
 
 import com.example.blog._core.util.MyDate;
+import com.example.blog.reply.Reply;
 import com.example.blog.user.User;
 import com.example.blog.user.UserResponse;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoardResponse {
 
@@ -19,6 +23,22 @@ public class BoardResponse {
         private String username;
 
         private boolean isOwner = false;
+        private List<ReplyDTO> replies;
+
+        @Data
+        class ReplyDTO {
+            private int id;
+            private String comment;
+            private int userId;
+            private String username;
+
+            public ReplyDTO(Reply reply) {
+                this.id = reply.getId();
+                this.comment = reply.getComment();
+                this.userId = reply.getUser().getId();
+                this.username = reply.getUser().getUsername();
+            }
+        }
 
         public DetailDTO(Board board, UserResponse.loginDTO user) {
             this.id = board.getId();
@@ -31,6 +51,7 @@ public class BoardResponse {
             if (user != null && board.getUser().getId() == user.getId()) {
                 this.isOwner = true;
             }
+            this.replies = board.getReplies().stream().map(reply -> new ReplyDTO(reply)).toList();
         }
     }
 

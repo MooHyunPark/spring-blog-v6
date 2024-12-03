@@ -20,6 +20,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final HttpSession session;
 
     // 컨트롤러는 view resolver 클래스를 가지고 있고, return 문자열과 동일한 파일을 찾아서 실행한다.
     @GetMapping("/")
@@ -36,7 +37,7 @@ public class BoardController {
      * 패스변수(where절) : /board/1
      */
     @GetMapping("/board/{id}")
-    public String detail(@PathVariable("id") Integer id, Model model, HttpSession session) {
+    public String detail(@PathVariable("id") Integer id, Model model) {
         UserResponse.loginDTO sessionUser = (UserResponse.loginDTO) session.getAttribute("sessionUser");
 
         BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id, sessionUser);

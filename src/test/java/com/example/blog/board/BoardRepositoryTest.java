@@ -18,10 +18,17 @@ public class BoardRepositoryTest {
 
 
     @Test
-    public void findByIdJoinUser_test() {
-        Board byIdJoinUser = boardRepository.findByIdJoinUser(1);
+    public void findByIdJoinUserAndReply_test() {
+        Optional<Board> byIdJoinUser = boardRepository.findByIdJoinUserAndReply(1);
 
-        System.out.println(byIdJoinUser.getUser().getUsername());
+
+    }
+
+    @Test
+    public void findByIdJoinUser_test() {
+        Optional<Board> byIdJoinUser = boardRepository.findByIdJoinUser(1);
+
+        System.out.println(byIdJoinUser.get().getUser().getId());
     }
 
     @Test
@@ -33,12 +40,6 @@ public class BoardRepositoryTest {
         Optional<Board> boardOP = boardRepository.findById(id);
         Board board = boardOP.get();
 
-        // 현재 Board 객체 안의 User 클래스는 id만 가지고 있고 username은 없는 상태
-        System.out.println("Lazy 로딩 직전");
-        String title = board.getUser().getUsername();
-        System.out.println("Lazy 로딩 직후");
-
-        // eye
     }
     
     
