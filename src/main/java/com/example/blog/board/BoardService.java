@@ -1,5 +1,6 @@
 package com.example.blog.board;
 
+import com.example.blog._core.util.error.ex.Exception403;
 import com.example.blog._core.util.error.ex.Exception404;
 
 import com.example.blog.user.User;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -53,7 +55,11 @@ public class BoardService {
     }
 
     @Transactional
-    public void 게시글삭제(int id) {
+    public void 게시글삭제(int id, UserResponse.loginDTO sessionUser) {
+        Board board = boardRepository.findById(id).orElseThrow(() -> new Exception404("해당 id의 게시글이 없습니다 : " + id));
+        if (sessionUser == null || !board.getUser().getId().equals(sessionUser.getId())) {
+            throw new Exception403("권한이 없습니다.");
+        }
         boardRepository.delete(id);
     }
 

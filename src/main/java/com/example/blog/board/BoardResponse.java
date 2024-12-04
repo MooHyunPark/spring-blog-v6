@@ -32,11 +32,18 @@ public class BoardResponse {
             private int userId;
             private String username;
 
-            public ReplyDTO(Reply reply) {
+            private boolean isOwner = false;
+
+            public ReplyDTO(Reply reply, UserResponse.loginDTO sessionUser) {
                 this.id = reply.getId();
                 this.comment = reply.getComment();
                 this.userId = reply.getUser().getId();
                 this.username = reply.getUser().getUsername();
+
+                if (sessionUser != null && reply.getUser().getId().equals(sessionUser.getId())) {
+                    this.isOwner = true;
+                }
+
             }
         }
 
@@ -51,7 +58,7 @@ public class BoardResponse {
             if (user != null && board.getUser().getId() == user.getId()) {
                 this.isOwner = true;
             }
-            this.replies = board.getReplies().stream().map(reply -> new ReplyDTO(reply)).toList();
+            this.replies = board.getReplies().stream().map(reply -> new ReplyDTO(reply, user)).toList();
         }
     }
 
